@@ -1,0 +1,28 @@
+{
+  "name": "my-preset",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "grapesjs": "^0.22.13",
+    "grapesjs-blocks-basic": "^1.0.2",
+    "grapesjs-blocks-bootstrap4": "^0.2.5",
+    "grapesjs-component-countdown": "^1.0.2",
+    "grapesjs-navbar": "^1.0.2",
+    "grapesjs-plugin-export": "^1.0.12",
+    "grapesjs-plugin-forms": "^2.0.6",
+    "grapesjs-preset-webpage": "^1.0.3",
+    "grapesjs-style-bg": "^2.0.2",
+    "vite": "^7.2.1"
+  }
+}
