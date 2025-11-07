@@ -2,7 +2,7 @@ export default `
 <div class="container my-5">
   <div class="row">
     <!-- Sidebar -->
-    <aside class="col-md-4 bg-dark text-white p-4">
+    <aside class="col-md-4 bg-dark text-white p-4"  style="max-width: 40% !important;">
       <div class="text-center mb-4">
         <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Profielfoto" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid white;" />
         <h2>ANKITA TIWARI</h2>
@@ -45,7 +45,7 @@ export default `
     </aside>
 
     <!-- Main content -->
-    <section class="col-md-8">
+    <section class="col-md-8 "  style="max-width: 60% !important;">
       <h3 class="text-primary">WORK EXPERIENCE</h3>
 
       <!-- Work experience timeline -->

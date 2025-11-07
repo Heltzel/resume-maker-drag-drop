@@ -11,8 +11,12 @@ import grapesjsNavbar from "grapesjs-navbar";
 import grapesjsComponentCountdown from "grapesjs-component-countdown";
 import grapesjsPluginExport from "grapesjs-plugin-export";
 
+// Importeren van Bootstrap 4 CSS via npm
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // Templates importeren
 import modern from "./templates/modern.js";
+import modern2 from "./templates/modern2.js";
 import classic from "./templates/classic.js";
 import minimalist from "./templates/minimalist.js";
 import creative from "./templates/creative.js";
@@ -88,6 +92,7 @@ editor.Commands.add("print-canvas-command", {
 // Templates object om makkelijk te wisselen
 const cvTemplates = {
   modern,
+  modern2,
   classic,
   minimalist,
   creative,
@@ -97,8 +102,8 @@ const cvTemplates = {
 // Functie om een template te laden
 function loadTemplate(name) {
   if (cvTemplates[name]) {
-    // Voeg de <link> voor Bootstrap 4 toe aan de template
-    const bootstrapLink = `<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />`;
+    // Dynamisch Bootstrap 4 toevoegen aan de editor
+    const bootstrapLink = `<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />`;
 
     // Voeg de <link> toe aan de HTML die in de editor wordt geladen
     const htmlWithBootstrap = bootstrapLink + cvTemplates[name];
