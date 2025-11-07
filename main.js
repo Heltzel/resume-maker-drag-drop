@@ -1,12 +1,11 @@
-// Importeren van GrapesJS en de CSS
 import grapesjs from "grapesjs";
 import "grapesjs/dist/css/grapes.min.css";
 
-// Importeren van plugins
+// Importeren van de benodigde plugins
 import grapesjsPresetWebpage from "grapesjs-preset-webpage";
 import grapesjsBlocksBasic from "grapesjs-blocks-basic";
 import grapesjsPluginForms from "grapesjs-plugin-forms";
-import grapesjsBlocksBootstrap4 from "grapesjs-blocks-bootstrap4";
+import grapesjsBlocksBootstrap4 from "grapesjs-blocks-bootstrap4"; // Bootstrap 4 blokken plugin
 import grapesjsStyleBg from "grapesjs-style-bg";
 import grapesjsNavbar from "grapesjs-navbar";
 import grapesjsComponentCountdown from "grapesjs-component-countdown";
@@ -29,7 +28,7 @@ const editor = grapesjs.init({
     grapesjsPresetWebpage,
     grapesjsBlocksBasic,
     grapesjsPluginForms,
-    grapesjsBlocksBootstrap4, // ← Bootstrap4 blocks plugin
+    grapesjsBlocksBootstrap4, // Voeg Bootstrap 4 blokken toe
     grapesjsStyleBg,
     grapesjsNavbar,
     grapesjsComponentCountdown,
@@ -98,7 +97,14 @@ const cvTemplates = {
 // Functie om een template te laden
 function loadTemplate(name) {
   if (cvTemplates[name]) {
-    editor.setComponents(cvTemplates[name]);
+    // Voeg de <link> voor Bootstrap 4 toe aan de template
+    const bootstrapLink = `<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />`;
+
+    // Voeg de <link> toe aan de HTML die in de editor wordt geladen
+    const htmlWithBootstrap = bootstrapLink + cvTemplates[name];
+
+    // Laad de template in de editor
+    editor.setComponents(htmlWithBootstrap);
   } else {
     console.error("Template bestaat niet:", name);
   }
