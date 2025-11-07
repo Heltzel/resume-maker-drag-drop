@@ -1,7 +1,10 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  optimizeDeps: {
-    include: ["grapesjs-blocks-bootstrap4"],
+  server: {
+    open: true, // Open de browser zodra de server start
+  },
+  build: {
+    outDir: "dist", // De output van de build komt in de dist map
   },
 });

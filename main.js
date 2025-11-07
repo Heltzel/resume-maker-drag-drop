@@ -1,7 +1,8 @@
+// Importeren van GrapesJS en de CSS
 import grapesjs from "grapesjs";
 import "grapesjs/dist/css/grapes.min.css";
 
-// Plugins
+// Importeren van plugins
 import grapesjsPresetWebpage from "grapesjs-preset-webpage";
 import grapesjsBlocksBasic from "grapesjs-blocks-basic";
 import grapesjsPluginForms from "grapesjs-plugin-forms";
@@ -11,7 +12,14 @@ import grapesjsNavbar from "grapesjs-navbar";
 import grapesjsComponentCountdown from "grapesjs-component-countdown";
 import grapesjsPluginExport from "grapesjs-plugin-export";
 
-// Editor initialiseren
+// Templates importeren
+import modern from "./templates/modern.js";
+import classic from "./templates/classic.js";
+import minimalist from "./templates/minimalist.js";
+import creative from "./templates/creative.js";
+import professional from "./templates/professional.js";
+
+// Editor instellen
 const editor = grapesjs.init({
   container: "#gjs",
   height: "100%",
@@ -78,64 +86,30 @@ editor.Commands.add("print-canvas-command", {
   },
 });
 
-editor.setComponents(`
-<!-- plak hier de CV HTML -->
-<div class="container" style="padding: 40px; font-family: Arial, sans-serif;">
-  <div class="row">
-    <!-- Linkerkant: Persoonlijke info -->
-    <div class="col-md-4" style="background: #f7f7f7; padding: 20px; border-radius: 8px;">
-      <div style="text-align: center;">
-        <img src="https://via.placeholder.com/150" alt="Profielfoto" class="img-fluid rounded-circle mb-3">
-        <h2>Jane Doe</h2>
-        <p>Frontend Developer</p>
-      </div>
-      <hr>
-      <h4>Contact</h4>
-      <p>Email: jane.doe@example.com</p>
-      <p>Tel: +31 6 12345678</p>
-      <p>LinkedIn: linkedin.com/in/janedoe</p>
-      <p>Website: www.janedoe.com</p>
-    </div>
+// Templates object om makkelijk te wisselen
+const cvTemplates = {
+  modern,
+  classic,
+  minimalist,
+  creative,
+  professional,
+};
 
-    <!-- Rechterkant: Ervaring & vaardigheden -->
-    <div class="col-md-8" style="padding: 20px;">
-      <h3>Over mij</h3>
-      <p>Ervaren frontend developer met een passie voor het bouwen van moderne, responsieve webapplicaties met HTML, CSS, JavaScript en React.</p>
+// Functie om een template te laden
+function loadTemplate(name) {
+  if (cvTemplates[name]) {
+    editor.setComponents(cvTemplates[name]);
+  } else {
+    console.error("Template bestaat niet:", name);
+  }
+}
 
-      <h3>Werkervaring</h3>
-      <div>
-        <h5>Frontend Developer @ Bedrijf X</h5>
-        <p>2022 - heden</p>
-        <ul>
-          <li>Ontwikkelen van responsieve webapplicaties</li>
-          <li>Implementeren van UI-componenten met React</li>
-          <li>Optimalisatie van performance en SEO</li>
-        </ul>
-      </div>
-      <div>
-        <h5>Junior Developer @ Bedrijf Y</h5>
-        <p>2020 - 2022</p>
-        <ul>
-          <li>Migratie van legacy code naar moderne frameworks</li>
-          <li>Samenwerken in een Agile team</li>
-        </ul>
-      </div>
+// Event listener voor het selecteren van een template
+document.getElementById("templateSelect").addEventListener("change", (e) => {
+  loadTemplate(e.target.value);
+});
 
-      <h3>Vaardigheden</h3>
-      <ul>
-        <li>HTML / CSS / JavaScript</li>
-        <li>React / Redux</li>
-        <li>Bootstrap4</li>
-        <li>GIT / GitHub</li>
-        <li>UI/UX design</li>
-      </ul>
-
-      <h3>Opleiding</h3>
-      <p>Bachelor Informatica, Universiteit Z, 2016 - 2020</p>
-    </div>
-  </div>
-</div>
-
-`);
+// Stel in op de standaard template (bijv. "modern")
+loadTemplate("modern");
 
 console.log("GrapesJS editor gestart:", editor);
