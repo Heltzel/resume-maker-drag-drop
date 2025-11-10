@@ -44,12 +44,89 @@ const editor = grapesjs.init({
   },
 });
 
-// Voeg een printknop toe aan de navbar
+//  print button
 editor.Panels.addButton("options", {
   id: "print-canvas",
   className: "fa fa-print",
   attributes: { title: "Print canvas" },
   command: "print-canvas-command",
+});
+// download  buttonu
+editor.Panels.addButton("options", {
+  id: "download-canvas",
+  className: "fa fa-download",
+  attributes: { title: "Download canvas" },
+  command: "download-canvas-command",
+});
+
+// download  buttonu
+editor.Panels.addButton("options", {
+  id: "upload-canvas",
+  className: "fa fa-upload",
+  attributes: { title: "Upload canvas" },
+  command: "upload-canvas-command",
+});
+
+// command  om canvas  te uploaden
+editor.Commands.add("upload-canvas-command", {
+  run: function (editor) {
+    // Maak een file input element
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json"; // We beperken de bestandsselectie tot JSON-bestanden
+
+    // Wanneer een bestand is geselecteerd, wordt het verwerkt
+    input.onchange = function (event) {
+      const file = event.target.files[0];
+      if (file && file.type === "application/json") {
+        // Lees het geselecteerde bestand
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            // Parse het JSON-bestand
+            const jsonData = JSON.parse(e.target.result);
+            // Laad de componenten en stijlen in het canvas
+            editor.setComponents(jsonData.components);
+            editor.setStyle(jsonData.styles);
+          } catch (error) {
+            alert("Fout bij het laden van het JSON-bestand: " + error.message);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        alert("Selecteer een geldig JSON-bestand.");
+      }
+    };
+
+    // Trigger de bestandselectie
+    input.click();
+  },
+});
+
+// command om canvas te downloaden
+editor.Commands.add("download-canvas-command", {
+  run: function (editor) {
+    // Verkrijg de canvas data in JSON formaat
+    const canvasData = editor.getComponents(); // Dit haalt de componenten op
+    const styleData = editor.getCss(); // Dit haalt de CSS op
+
+    // Maak een JSON-object van de componenten en CSS
+    const jsonData = {
+      components: canvasData,
+      styles: styleData,
+    };
+
+    // Maak een Blob van de JSON data voor download
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+      type: "application/json",
+    });
+
+    // Maak een download-link en trigger deze
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "canvas.json"; // Bestandsnaam voor het JSON-bestand
+    link.click();
+  },
 });
 
 // Command om canvas te printen
