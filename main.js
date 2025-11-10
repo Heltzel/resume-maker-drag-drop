@@ -30,6 +30,7 @@ const editor = grapesjs.init({
   height: "100%",
   storageManager: false,
   fromElement: true,
+
   plugins: [
     grapesjsPresetWebpage,
     grapesjsBlocksBasic,
@@ -44,6 +45,21 @@ const editor = grapesjs.init({
     [grapesjsBlocksBasic]: { flexGrid: true },
     [grapesjsPresetWebpage]: { blocksBasicOpts: { flexGrid: true } },
   },
+});
+// Sellecteer Tablet on start
+editor.on("load", function () {
+  // Zet de standaard device op Tablet
+  editor.setDevice("Tablet");
+
+  // Zorg ervoor dat de tablet-knop actief is in het devices panel
+  const panels = editor.Panels;
+  const devicePanel = panels.getPanel("devices-c");
+
+  devicePanel.buttons.forEach((button) => {
+    if (button.id === "set-device-tablet") {
+      button.set("active", true); // Zet de tablet-knop als actief
+    }
+  });
 });
 
 //  print button
