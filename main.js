@@ -22,6 +22,8 @@ import minimalist from "./templates/minimalist.js";
 import creative from "./templates/creative.js";
 import professional from "./templates/professional.js";
 
+const APPID = import.meta.env.VITE_APPID || "default-app-id";
+
 // Editor instellen
 const editor = grapesjs.init({
   container: "#gjs",
@@ -85,9 +87,17 @@ editor.Commands.add("upload-canvas-command", {
           try {
             // Parse het JSON-bestand
             const jsonData = JSON.parse(e.target.result);
-            // Laad de componenten en stijlen in het canvas
-            editor.setComponents(jsonData.components);
-            editor.setStyle(jsonData.styles);
+
+            // Controleer of de appId aanwezig is en of deze overeenkomt met de gedeclareerde APPID
+            if (jsonData.appId && jsonData.appId === APPID) {
+              // Als de appId klopt, laad de componenten en stijlen in het canvas
+              editor.setComponents(jsonData.components);
+              editor.setStyle(jsonData.styles);
+              alert("Canvas succesvol geladen.");
+            } else {
+              // Als de appId niet klopt of ontbreekt
+              alert("De appId komt niet overeen of ontbreekt in het bestand.");
+            }
           } catch (error) {
             alert("Fout bij het laden van het JSON-bestand: " + error.message);
           }
@@ -112,6 +122,7 @@ editor.Commands.add("download-canvas-command", {
 
     // Maak een JSON-object van de componenten en CSS
     const jsonData = {
+      appId: APPID,
       components: canvasData,
       styles: styleData,
     };
@@ -124,7 +135,7 @@ editor.Commands.add("download-canvas-command", {
     // Maak een download-link en trigger deze
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "canvas.json"; // Bestandsnaam voor het JSON-bestand
+    link.download = "resume.json"; // Bestandsnaam voor het JSON-bestand
     link.click();
   },
 });

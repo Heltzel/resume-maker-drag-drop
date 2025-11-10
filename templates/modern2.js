@@ -12,7 +12,7 @@ export default `
       <!-- Contact section -->
       <h5 class="bg-primary text-white p-2">CONTACT</h5>
       <ul class="list-unstyled">
-        <li><i class="fa fa-phone"></i> +91 987 654 321</li>
+        <li><i class="fa fa-phone"></i> +31 987 654 321</li>
         <li><i class="fa fa-envelope"></i> ankita.tiwari@gmail.com</li>
         <li><i class="fa fa-home"></i> #1, Ahmedabad, Gujarat</li>
       </ul>
